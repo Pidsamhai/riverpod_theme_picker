@@ -9,7 +9,7 @@ void main() async {
     ProviderScope(
       overrides: [
         await ThemeServiceProvider.override(
-          const ThemePickerServiceOption(
+          ThemePickerServiceOption(
             fontfamilies: [
               "Pattaya",
               "Kanit",
@@ -18,6 +18,15 @@ void main() async {
               "Krub",
               "Itim",
             ],
+            defaultFontFamilyIndex: (fontFammilies) {
+              return fontFammilies.indexOf("Itim");
+            },
+            defaultThemeIndex: (schemes) {
+              return schemes.indexOf(FlexScheme.blue);
+            },
+            defaultThemeModeindex: (modes) {
+              return modes.indexOf(ThemeMode.light);
+            },
           ),
         ),
       ],

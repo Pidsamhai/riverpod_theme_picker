@@ -17,7 +17,7 @@ class ThemeServiceProvider extends ChangeNotifier {
   ) async {
     _instance._storage = await SharedPreferences.getInstance();
     _instance.option = opt;
-    _instance.darkThemes = FlexScheme.values
+    _instance.darkThemes = opt.schemes
         .map(
           (e) => ThemeMap(
             e.toString().split(".").last.capitalize,
@@ -25,7 +25,7 @@ class ThemeServiceProvider extends ChangeNotifier {
           ),
         )
         .toList();
-    _instance.lightThemes = FlexScheme.values
+    _instance.lightThemes = opt.schemes
         .map(
           (e) => ThemeMap(
             e.toString().split(".").last.capitalize,
@@ -69,7 +69,9 @@ class ThemeServiceProvider extends ChangeNotifier {
   final themeModes = ThemeMode.values;
 
   ThemeMode get themeMode {
-    return themeModes[_storage.getInt(themeModeKey) ?? 1];
+    return themeModes[_storage.getInt(themeModeKey) ??
+        option.defaultThemeModeindex?.call(themeModes) ??
+        1];
   }
 
   set themeMode(ThemeMode n) {
@@ -81,7 +83,10 @@ class ThemeServiceProvider extends ChangeNotifier {
     _storage.setBool(storageKey, isDarkMode);
   }
 
-  int get themeIndex => _storage.getInt(themeIndexKey) ?? 0;
+  int get themeIndex =>
+      _storage.getInt(themeIndexKey) ??
+      option.defaultThemeIndex?.call(option.schemes) ??
+      0;
   set themeIndex(int n) {
     _storage.setInt(themeIndexKey, n);
     notifyListeners();
@@ -89,7 +94,10 @@ class ThemeServiceProvider extends ChangeNotifier {
 
   late final List<TextThemeMap>? fonts;
 
-  int get selectedFontIndex => _storage.getInt(fontIndexKey) ?? 0;
+  int get selectedFontIndex =>
+      _storage.getInt(fontIndexKey) ??
+      option.defaultFontFamilyIndex?.call(option.fontfamilies ?? []) ??
+      0;
 
   set selectedFontIndex(int n) {
     _storage.setInt(fontIndexKey, n);

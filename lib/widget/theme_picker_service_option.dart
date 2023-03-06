@@ -6,6 +6,10 @@ class ThemePickerServiceOption {
   final ThemePickerServiceOptionLabel label;
   final ThemeData Function(FlexScheme scheme) lightThemeBuilder;
   final ThemeData Function(FlexScheme scheme) darkThemeBuilder;
+  final List<FlexScheme> schemes;
+  final int Function(List<FlexScheme> schemes)? defaultThemeIndex;
+  final int Function(List<String> fontFammilies)? defaultFontFamilyIndex;
+  final int Function(List<ThemeMode> modes)? defaultThemeModeindex;
   // Google Font Family Name Case sensitive https://fonts.google.com/
   final List<String>? fontfamilies;
   const ThemePickerServiceOption({
@@ -13,6 +17,10 @@ class ThemePickerServiceOption {
     this.lightThemeBuilder = defaultLightThemeBuilder,
     this.darkThemeBuilder = defaultDarkThemeBuilder,
     this.fontfamilies,
+    this.defaultThemeIndex,
+    this.defaultFontFamilyIndex,
+    this.defaultThemeModeindex,
+    this.schemes = FlexScheme.values,
   });
 
   static ThemeData defaultLightThemeBuilder(FlexScheme scheme) {
