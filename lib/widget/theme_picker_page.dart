@@ -33,7 +33,7 @@ class _ThemePickerPageState extends ConsumerState<ThemePickerPage> {
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
                 Text(
-                  "Theme",
+                  ref.read(themePickerServiceProvider).option.label.title,
                   style: Theme.of(context).textTheme.titleLarge,
                 ),
                 SpaceBox.s,
